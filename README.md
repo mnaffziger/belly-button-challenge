@@ -1,2 +1,3 @@
 # belly-button-challenge
-interactive dashboard
+Module 14: Building an interactive dashboard
+---
