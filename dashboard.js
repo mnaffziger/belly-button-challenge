@@ -38,12 +38,12 @@ function buildMetadata(sample){
 function buildCharts(sample) {
     d3.json(bellyButtonUrl).then((data) => {
        let samples = data.samples;
-       let resultArray = samples.filter(sampleObj => sampleObj.id == samples);
-       let result = resultAraay[0]; 
+       let resultArray = samples.filter(sampleObj => sampleObj.id == sample);
+       let result = resultArray[0]; 
 
        // define resultArray objects
        let otu_ids = result.otu_ids;
-       let otu_labels = result.out_labels;
+       let otu_labels = result.otu_labels;
        let sample_values = result.sample_values;
 
        // build bubble chart
@@ -60,7 +60,7 @@ function buildCharts(sample) {
             y: sample_values,
             text: otu_labels,
             mode: "markers",
-            markers: {
+            marker: {
                 size: sample_values,
                 color: otu_ids,
                 colorscale: "Earth"
@@ -70,7 +70,7 @@ function buildCharts(sample) {
 
        Plotly.newPlot("bubble", bubbleData, bubbleLayout);
 
-       let yticks = otu_ids.slice(0,10).reverse(),
+       let yticks = otu_ids.slice(0,10).map(otuID => `OTU ${otuID}`).reverse();
        let barData = [
         {
             y: yticks,
@@ -82,11 +82,11 @@ function buildCharts(sample) {
        ];
 
        let barLayout = {
-        title: "Top 10 Bacterial Cultures Isolated"
+        title: "Top 10 Bacterial Cultures Isolated",
         margin: { t: 30, l: 150 }
        };
 
-       Plotly.newPlot("bar", barData, barLayout)
+       Plotly.newPlot("bar", barData, barLayout);
        });
 }
 
@@ -100,7 +100,7 @@ function init() {
     d3.json(bellyButtonUrl).then((data) => {
         let sampleNames = data.names;
 
-        for (let i=0; i < sample.Names.length; i++){
+        for (let i = 0; i < sampleNames.length; i++){
             selector
                 .append("option")
                 .text(sampleNames[i])
