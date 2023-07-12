@@ -30,7 +30,10 @@ function buildMetadata(sample){
         for (key in result){
             PANEL.append("h6").text(`${key.toUpperCase()}: ${result[key]}`);
         };
-    })
+
+        // build gauge plot
+        buildGauge(result.wfreq);
+    });
     
 }
 
