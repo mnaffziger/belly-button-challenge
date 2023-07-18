@@ -12,7 +12,7 @@ function buildGauge(wfreq){
     let x = radius * Math.cos(rad);
     let y = radius * Math.sin(rad);
 
-    // Path
+    // needle path
     let mainPath = "M -.0 -0.05 L .0 0.05 L ";
     let pathX = String(x);
     let space = " ";
